@@ -121,7 +121,9 @@ namespace Content.Client.Administration.UI.Tabs.PlayerTab
                     player.Antag ? "YES" : "NO",
                     new StyleBoxFlat(useAltColor ? _altColor : _defaultColor),
                     player.Connected,
-                    player.PlaytimeString);
+                    player.PlaytimeString,
+                    player.Balance);
+                    player.Balance == int.MinValue ? "NO BALANCE" : player.Balance.ToString());
                 entry.PlayerEntity = player.NetEntity;
                 entry.OnKeyBindDown += args => OnEntryKeyBindDown?.Invoke(entry, args);
                 entry.ToolTip = Loc.GetString("player-tab-entry-tooltip");
@@ -151,8 +153,9 @@ namespace Content.Client.Administration.UI.Tabs.PlayerTab
                 Header.Job => Compare(x.StartingJob, y.StartingJob),
                 Header.Antagonist => x.Antag.CompareTo(y.Antag),
                 Header.Playtime => TimeSpan.Compare(x.OverallPlaytime ?? default, y.OverallPlaytime ?? default),
+                Header.Balance => x.Balance.CompareTo(y.Balance),
                 _ => 1
-            };
+            };;
         }
 
         private int Compare(string x, string y)
