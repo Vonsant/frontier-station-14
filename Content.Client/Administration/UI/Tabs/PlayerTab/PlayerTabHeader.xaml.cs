@@ -20,6 +20,7 @@ public sealed partial class PlayerTabHeader : Control
         JobLabel.OnKeyBindDown += JobClicked;
         AntagonistLabel.OnKeyBindDown += AntagonistClicked;
         PlaytimeLabel.OnKeyBindDown += PlaytimeClicked;
+        BalanceLabel.OnKeyBindDown += BalanceClicked;
     }
 
     public Label GetHeader(Header header)
@@ -31,6 +32,7 @@ public sealed partial class PlayerTabHeader : Control
             Header.Job => JobLabel,
             Header.Antagonist => AntagonistLabel,
             Header.Playtime => PlaytimeLabel,
+            Header.Balance => BalanceLabel,
             _ => throw new ArgumentOutOfRangeException(nameof(header), header, null)
         };
     }
@@ -42,6 +44,7 @@ public sealed partial class PlayerTabHeader : Control
         JobLabel.Text = Loc.GetString("player-tab-job");
         AntagonistLabel.Text = Loc.GetString("player-tab-antagonist");
         PlaytimeLabel.Text = Loc.GetString("player-tab-playtime");
+        BalanceLabel.Text = Loc.GetString("player-tab-balance");
     }
 
     private void HeaderClicked(GUIBoundKeyEventArgs args, Header header)
@@ -79,8 +82,13 @@ public sealed partial class PlayerTabHeader : Control
     {
         HeaderClicked(args, Header.Playtime);
     }
-
+    
+    private void BalanceClicked(GUIBoundKeyEventArgs args)
+    {
+        HeaderClicked(args, Header.Balance);
+    }
     protected override void Dispose(bool disposing)
+    
     {
         base.Dispose(disposing);
 
@@ -91,6 +99,7 @@ public sealed partial class PlayerTabHeader : Control
             JobLabel.OnKeyBindDown -= JobClicked;
             AntagonistLabel.OnKeyBindDown -= AntagonistClicked;
             PlaytimeLabel.OnKeyBindDown -= PlaytimeClicked;
+            BalanceLabel.OnKeyBindDown -= BalanceClicked;
         }
     }
 
@@ -100,6 +109,7 @@ public sealed partial class PlayerTabHeader : Control
         Character,
         Job,
         Antagonist,
-        Playtime
+        Playtime,
+        Balance
     }
 }
